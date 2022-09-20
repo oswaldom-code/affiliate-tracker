@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14.4-alpine
+    container_name: ${DB_CONTAINER_NAME}
+    volumes:
+      - ./db/docker/db-data:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT_HOST}:${DB_PORT_CONTAINER}
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ${PGADMIN_CONTAINER_NAME}
+    ports:
+      - ${PGADMIN_PORT_HOST}:${PGADMIN_PORT_CONTAINER}
+    volumes:
+      - ./db/docker/pgadmin-data:/var/lib/postgresql/data
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}

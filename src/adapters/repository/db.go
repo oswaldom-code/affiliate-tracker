@@ -7,9 +7,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/oswaldom-code/api-template-gin/pkg/config"
-	"github.com/oswaldom-code/api-template-gin/pkg/log"
-	"github.com/oswaldom-code/api-template-gin/src/aplication/system_services/ports"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/config"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/log"
+	"github.com/oswaldom-code/affiliate-tracker/src/aplication/system_services/ports"
 )
 
 // repository handles the database context

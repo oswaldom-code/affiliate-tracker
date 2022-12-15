@@ -3,8 +3,8 @@ package api
 import (
 	"os"
 
-	"github.com/oswaldom-code/api-template-gin/pkg/config"
-	"github.com/oswaldom-code/api-template-gin/src/adapters/http/rest/infrastructure"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/config"
+	"github.com/oswaldom-code/affiliate-tracker/src/adapters/http/rest/infrastructure"
 	"github.com/spf13/cobra"
 )
 

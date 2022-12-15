@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/oswaldom-code/api-template-gin/pkg/log"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/log"
 
 	"github.com/spf13/viper"
 )

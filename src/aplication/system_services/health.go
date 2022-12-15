@@ -1,8 +1,8 @@
 package system_services
 
 import (
-	"github.com/oswaldom-code/api-template-gin/src/adapters/repository"
-	"github.com/oswaldom-code/api-template-gin/src/aplication/system_services/ports"
+	"github.com/oswaldom-code/affiliate-tracker/src/adapters/repository"
+	"github.com/oswaldom-code/affiliate-tracker/src/aplication/system_services/ports"
 )
 
 type Health interface {

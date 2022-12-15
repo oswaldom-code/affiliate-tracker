@@ -9,8 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 	metrics "github.com/penglongli/gin-metrics/ginmetrics"
 
-	"github.com/oswaldom-code/api-template-gin/pkg/config"
-	"github.com/oswaldom-code/api-template-gin/src/adapters/http/rest/handlers"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/config"
+	"github.com/oswaldom-code/affiliate-tracker/src/adapters/http/rest/handlers"
 )
 
 var basicAuthorizationMiddleware MiddlewareFunc = func(c *gin.Context) {

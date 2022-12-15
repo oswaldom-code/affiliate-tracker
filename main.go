@@ -1,8 +1,8 @@
 package main
 
 import (
-	app "github.com/oswaldom-code/api-template-gin/cmd/api"
-	"github.com/oswaldom-code/api-template-gin/pkg/log"
+	app "github.com/oswaldom-code/affiliate-tracker/cmd/api"
+	"github.com/oswaldom-code/affiliate-tracker/pkg/log"
 )
 
 func main() {

@@ -18,7 +18,7 @@ development:
     db:
       user: postgres
       password: supersecret
-      host: 127.0.0.1
+      host: AFFILIATE_TRACKER_DB
       port: 5432
       database: db
       max_connections: 10
@@ -56,7 +56,7 @@ production:
     db:
       user: postgres
       password: supersecret
-      host: api-template-db
+      host: AFFILIATE_TRACKER_DB
       port: 5432
       database: db
       max_connections: 10

@@ -1,6 +1,6 @@
-module github.com/oswaldom-code/api-template-gin
+module github.com/oswaldom-code/affiliate-tracker
 
-go 1.18
+go 1.19
 
 require github.com/spf13/cobra v1.5.0
 

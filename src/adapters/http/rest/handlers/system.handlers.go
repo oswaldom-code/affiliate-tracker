@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/oswaldom-code/api-template-gin/src/adapters/http/rest/dto"
+	"github.com/oswaldom-code/affiliate-tracker/src/adapters/http/rest/dto"
 )
 
 func (h *Handler) Ping(c *gin.Context) {

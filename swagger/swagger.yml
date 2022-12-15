@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: API Template
+  description: API Template description
+  contact:
+    name: API Support
+    url: http://www.domain.com/support
+    email: support@domain.com
+  version: 1.0.0
+
+servers:
+  - url: "https://{domain}:{port}/api/{version}"
+    description: Production server
+    variables:
+      domain:
+        default: localhost
+      port:
+        default: "9000"
+      version:
+        default: "v1"
+
+tags:
+  - name: System
+    description: Operations about system
+
+paths:
+  /ping:
+    get:
+      tags:
+        - System
+      operationId: ping
+      summary: Ping the server
+      description: Ping the server
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              allOf:
+                - $ref: "#/components/schemas/Response"
+                - type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              allOf:
+                - $ref: "#/components/schemas/ErrorResponse"
+                - type: object
+
+components:
+  schemas:
+    Response:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Success flag of the operation
+        message:
+          type: string
+          description: Message of the operation
+      example:
+        success: true
+        mensaje: "pong"
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Success flag of the operation
+        message:
+          type: string
+          description: Message of the operation
+        error:
+          type: string
+          description: Error message of the operation
+      example:
+        success: false
+        mensaje: "An error has occurred"
+        error: "some error message here"

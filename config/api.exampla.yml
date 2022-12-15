@@ -1,0 +1,84 @@
+environment: development
+app:
+  name: API Template
+  version: 1.0.0
+  description: API
+
+development:
+  server:
+    host: 127.0.0.1
+    port: 9000
+    scheme: https # http or https
+    mode: debug # debug or release
+    ssl:
+      key:
+      cert:
+    static: ./src/adapters/http/rest/static/
+  storage:
+    db:
+      user: postgres
+      password: supersecret
+      host: 127.0.0.1
+      port: 5432
+      database: db
+      max_connections: 10
+      sslmode: disable
+      # skip_default_transaction: (default false) - skip default transaction for each request
+      # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
+      skip_default_transaction: true
+      full_save_associations: false
+    s3:
+      bucket:
+      access_key:
+      secret_access_key:
+      region:
+      endpoint:
+  logging:
+    level: DEBUG
+    errorLogFile: error.log
+  auth:
+    secret: JWT_SECRET
+  email:
+    user:
+    password:
+    port:
+    smtp_server:
+    host:
+
+production:
+  server:
+    host: 0.0.0.0
+    port: 9000
+    scheme: http # http or https
+    mode: debug # debug or release
+    static: ./src/adapters/http/rest/static/
+  storage:
+    db:
+      user: postgres
+      password: supersecret
+      host: api-template-db
+      port: 5432
+      database: db
+      max_connections: 10
+      sslmode: disable
+      # skip_default_transaction: (default false) - skip default transaction for each request
+      # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
+      skip_default_transaction: true
+      full_save_associations: false
+    s3:
+      bucket:
+      access_key:
+      secret_access_key:
+      region:
+      endpoint:
+  logging:
+    level: DEBUG
+    errorLogFile: error.log
+  auth:
+    secret: JWT_SECRET
+  email:
+    user:
+    password:
+    port:
+    smtp_server:
+    host:

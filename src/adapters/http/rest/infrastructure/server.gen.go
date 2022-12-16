@@ -5,6 +5,7 @@ import "github.com/gin-gonic/gin"
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	Ping(c *gin.Context)
+	GetReferralLink(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -18,6 +19,10 @@ type MiddlewareFunc func(c *gin.Context)
 // Ping operation middleware
 func (siw *ServerInterfaceWrapper) Ping(c *gin.Context) {
 	siw.Handler.Ping(c)
+}
+
+func (siw *ServerInterfaceWrapper) GetReferralLink(c *gin.Context) {
+	siw.Handler.GetReferralLink(c)
 }
 
 // GinServerOptions provides options for the Gin server.
@@ -39,6 +44,7 @@ func RegisterHandlersWithOptions(router *gin.Engine, si ServerInterface, options
 	}
 
 	router.GET(options.BaseURL+"/ping", wrapper.Ping)
+	router.POST(options.BaseURL+"/referral_link", wrapper.GetReferralLink)
 
 	return router
 }

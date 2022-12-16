@@ -9,7 +9,7 @@ import (
 
 	"github.com/oswaldom-code/affiliate-tracker/pkg/config"
 	"github.com/oswaldom-code/affiliate-tracker/pkg/log"
-	"github.com/oswaldom-code/affiliate-tracker/src/aplication/system_services/ports"
+	"github.com/oswaldom-code/affiliate-tracker/src/services/ports"
 )
 
 // repository handles the database context
@@ -17,13 +17,11 @@ type repository struct {
 	db *gorm.DB
 }
 
-var repositoryInstance *repository
+var dbStore *repository
 
-// New returns a new instance of a Store
-func NewConnection(dsn config.DBConfig) ports.Store {
+// New returns a new instance of a repository
+func New(dsn config.DBConfig) ports.Repository {
 	var dsnStrConnection string
-	log.DebugWithFields("Creating new database connection", log.Fields{"dsn": dsn})
-
 	switch dsn.Engine {
 	case "postgre":
 		dsnStrConnection = fmt.Sprintf(
@@ -56,15 +54,15 @@ func NewConnection(dsn config.DBConfig) ports.Store {
 		})
 		os.Exit(1)
 	}
-
 	return &repository{db: db.Set("gorm:auto_preload", true)}
 }
 
-func NewRepository() ports.Store {
-	log.DebugWithFields("Creating new database connection", log.Fields{"dsn": config.GetDBConfig()})
-	if repositoryInstance == nil {
-		NewConnection(config.GetDBConfig())
-		return repositoryInstance
+func NewRepository() ports.Repository {
+	log.DebugWithFields("Creating new database connection",
+		log.Fields{"dsn": config.GetDBConfig()})
+	if dbStore == nil {
+		New(config.GetDBConfig())
+		return dbStore
 	}
-	return repositoryInstance
+	return dbStore
 }

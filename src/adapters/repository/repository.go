@@ -2,8 +2,8 @@ package repository
 
 //var sessionConfig = &gorm.Session{SkipDefaultTransaction: true, FullSaveAssociations: false}
 
-func (s *repository) TestDb() error {
-	db, err := s.db.DB()
+func (r *repository) TestDb() error {
+	db, err := r.db.DB()
 	if err != nil {
 		return err
 	}

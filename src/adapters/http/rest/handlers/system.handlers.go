@@ -8,5 +8,5 @@ import (
 )
 
 func (h *Handler) Ping(c *gin.Context) {
-	c.JSON(http.StatusOK, dto.Response{Status: true, Message: "pong"})
+	c.JSON(http.StatusOK, dto.Response{Success: true, Message: "pong"})
 }

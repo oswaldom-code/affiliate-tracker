@@ -1,12 +1,7 @@
 package dto
 
 type Response struct {
-	Status  bool `json:"status"`
-	Message string `json:"mensaje"`
-}
-
-type ResponseWithData struct {
-	Status  bool      `json:"status"`
-	Message string      `json:"mensaje"`
+	Success bool        `json:"success"`
+	Message string      `json:"message"`
 	Data    interface{} `json:"data"`
 }

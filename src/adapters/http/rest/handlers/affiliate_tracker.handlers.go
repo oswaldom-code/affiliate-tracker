@@ -6,24 +6,68 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/oswaldom-code/affiliate-tracker/src/adapters/http/rest/dto"
 	AffiliateTrackerServices "github.com/oswaldom-code/affiliate-tracker/src/services/affiliate_tracker_services"
+	AffiliateTrackerTypes "github.com/oswaldom-code/affiliate-tracker/src/services/affiliate_tracker_services/types"
 )
 
 func (h *Handler) GetReferralLink(c *gin.Context) {
 	// dependency injection AffiliateTrackerServices
 	affiliateTrackerServices := AffiliateTrackerServices.NewTrackerService()
-
-	// get payload
-	referralLink := AffiliateTrackerServices.ReferralLink{}
-	err := c.BindJSON(&referralLink)
+	referralLink := AffiliateTrackerTypes.ReferralLink{}
+	err := c.BindJSON(&referralLink) // get payload
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, map[string]interface{}{"success": false})
+		c.JSON(http.StatusBadRequest,
+			dto.Response{
+				Success: false,
+				Message: "Your request could not be processed successfully",
+				Error:   err.Error(),
+			})
 		return
 	}
-	stringEncrypter := affiliateTrackerServices.ProcessInputUrl(referralLink)
+	identifierCreated, err := affiliateTrackerServices.GenerateIdentifier(referralLink)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError,
+			dto.Response{
+				Success: false,
+				Message: "Oops at this time we can not process requests, please try again later",
+				Error:   err.Error(),
+			})
+		return
+	}
 	// response format
 	c.JSON(http.StatusOK, &dto.Response{
 		Success: true,
-		Message: "Success",
-		Data:    stringEncrypter,
+		Message: "ID generated successfully",
+		Data:    identifierCreated,
 	})
+}
+
+func (h *Handler) ProcessRequest(c *gin.Context) {
+	// dependency injection AffiliateTrackerServices
+	affiliateTrackerServices := AffiliateTrackerServices.NewTrackerService()
+	ref, found := c.GetQuery("ref")
+	if !found {
+		c.JSON(http.StatusInternalServerError,
+			dto.Response{
+				Success: false,
+				Message: "Bad request",
+				Error:   "ref parameter not found in request",
+			})
+		return
+	}
+	// get header
+	httpHeaders := dto.HTTPHeaders{}
+	httpHeaders.GetHeader(c)
+	httpHeaders.HTTPHeadersToReferred()
+	url, err := affiliateTrackerServices.IdentifierDecoding(ref, httpHeaders.HTTPHeadersToReferred())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError,
+			dto.Response{
+				Success: false,
+				Message: "Oops at this time we can not process requests, please try again later",
+				Error:   err.Error(),
+			})
+		return
+	}
+	// redirect to job
+	c.Redirect(http.StatusMovedPermanently, url)
 }

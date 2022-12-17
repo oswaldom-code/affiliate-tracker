@@ -6,6 +6,7 @@ import "github.com/gin-gonic/gin"
 type ServerInterface interface {
 	Ping(c *gin.Context)
 	GetReferralLink(c *gin.Context)
+	ProcessRequest(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -23,6 +24,10 @@ func (siw *ServerInterfaceWrapper) Ping(c *gin.Context) {
 
 func (siw *ServerInterfaceWrapper) GetReferralLink(c *gin.Context) {
 	siw.Handler.GetReferralLink(c)
+}
+
+func (siw *ServerInterfaceWrapper) ProcessRequest(c *gin.Context) {
+	siw.Handler.ProcessRequest(c)
 }
 
 // GinServerOptions provides options for the Gin server.
@@ -45,6 +50,6 @@ func RegisterHandlersWithOptions(router *gin.Engine, si ServerInterface, options
 
 	router.GET(options.BaseURL+"/ping", wrapper.Ping)
 	router.POST(options.BaseURL+"/referral_link", wrapper.GetReferralLink)
-
+	router.GET(options.BaseURL+"/open_position", wrapper.ProcessRequest)
 	return router
 }

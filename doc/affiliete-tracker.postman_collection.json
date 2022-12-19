@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "d284199d-2212-4a13-b7c5-f9dec82c8cf0",
+		"name": "affiliete-tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14749285"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agent\": \"UYYRIIV3WF\",\n    \"url\":\"https://synkdup.com/job-vacancy/kimpton-hotels-resturants-line-cook-jobs-in-bellevue-wa-98009-367574752\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/referral_link",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"referral_link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/open_position?ref=ERFUqLiHuJKuc7Vrnbu2yFXlAcLdWiXN5YvwasmQOxCQABOsiIQObufIeMiMtR4A+rJH3KMbo00iKOYwQJHusREIGQ7IlPzMmf+2rATTRc+H1w63WEGevzQDkrK6e1j87gFEgQSfM8j2293qxHo31D7J+45bdfqIJrXjFYqxAno=",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000/open_position?ref=ERFUqLiHuJKuc7Vrnbu2yFXlAcLdWiXN5YvwasmQOxCQABOsiIQObufIeMiMtR4A+rJH3KMbo00iKOYwQJHusREIGQ7IlPzMmf+2rATTRc+H1w63WEGevzQDkrK6e1j87gFEgQSfM8j2293qxHo31D7J+45bdfqIJrXjFYqxAno=",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"open_position"
+					],
+					"query": [
+						{
+							"key": "ref",
+							"value": "ERFUqLiHuJKuc7Vrnbu2yFXlAcLdWiXN5YvwasmQOxCQABOsiIQObufIeMiMtR4A+rJH3KMbo00iKOYwQJHusREIGQ7IlPzMmf+2rATTRc+H1w63WEGevzQDkrK6e1j87gFEgQSfM8j2293qxHo31D7J+45bdfqIJrXjFYqxAno="
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/report/referreds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000/report/referreds",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"report",
+						"referreds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/report/referreds/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000/report/referreds/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"report",
+						"referreds",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/report/referreds/agent/uYYRIIV3Wf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000/report/referreds/agent/uYYRIIV3Wf",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"report",
+						"referreds",
+						"agent",
+						"uYYRIIV3Wf"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

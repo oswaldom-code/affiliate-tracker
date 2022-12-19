@@ -2,18 +2,16 @@ package models
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type Referred struct {
-	gorm.Model
-	ID        int64
-	Agent     string
-	Url       string
-	Ip        string
-	Origin    string
-	CreatedAt *time.Time
-	UpdatedAt *time.Time
-	DeletedAt *time.Time
+	ID               int64
+	AgentId          string
+	JobUrl           string
+	RequestReferer   string
+	RequestIp        string
+	RequestUserAgent string
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+	DeletedAt        time.Time
 }

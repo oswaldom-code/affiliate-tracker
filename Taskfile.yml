@@ -18,12 +18,28 @@ tasks:
         cmds:
             - docker rm -f {{.DB_CONTAINER_NAME}} > /dev/null 2>&1 || true
             - docker rm -f {{.PGADMIN_CONTAINER_NAME}} > /dev/null 2>&1 || true
-    docker.compose:
-        desc: Run docker-compose
+    db.logs:
+        desc: Show database container logs
         cmds:
-            - docker-compose up -d
+            - sudo docker logs {{.DB_CONTAINER_NAME}}
+    app.up:
+        desc: Run all Docker containers for the application
+        cmds:
+            - sudo docker-compose  --env-file {{.PROJECT_PATH}}/config/environments/{{.ENV}}/.env up -d
+    app.down:
+        desc: Stop all Docker containers for the application
+        cmds:
+            - sudo docker-compose --env-file {{.PROJECT_PATH}}/config/environments/{{.ENV}}/.env down
+    app.logs:
+        desc: Show App container logs
+        cmds:
+            - sudo docker logs {{.APP_NAME}}
+    app.image.build:
+        desc: Build the docker image of the application
+        cmds:
+            - sudo docker build -t {{.APP_NAME}}:v1 .
     build:
-        desc: Build app
+        desc: Build the App
         cmds:
             - GOFLAGS=-mod=mod go build -o bin/{{.APP_NAME}} main.go
     run:
@@ -31,6 +47,6 @@ tasks:
         cmds:
             - GOFLAGS=-mod=mod go run main.go server
     swagger.doc:
-        desc: Swagger documentation
+        desc: Generate application swagger documentation
         cmds:
             - docker run -i yousan/swagger-yaml-to-html < swagger/swagger.yml > doc/api.html

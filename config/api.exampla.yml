@@ -1,49 +1,37 @@
 environment: development
 app:
-  name: API Template
+  name: Affiliate tracker
   version: 1.0.0
   description: API
 
 development:
   server:
     host: 127.0.0.1
-    port: 9000
-    scheme: https # http or https
+    port: 3000
+    scheme: http # http or https
     mode: debug # debug or release
-    ssl:
-      key:
-      cert:
-    static: ./src/adapters/http/rest/static/
-  storage:
-    db:
-      user: postgres
-      password: supersecret
-      host: AFFILIATE_TRACKER_DB
-      port: 5432
-      database: db
-      max_connections: 10
-      sslmode: disable
-      # skip_default_transaction: (default false) - skip default transaction for each request
-      # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
-      skip_default_transaction: true
-      full_save_associations: false
-    s3:
-      bucket:
-      access_key:
-      secret_access_key:
-      region:
-      endpoint:
+    ssl: # to test in local development environment https requests
+      key: "./ssl/server-key.pem"
+      cert: "./ssl/server.pem"
+    static: "./src/adapters/http/rest/static/"
+  db:
+    user: postgres
+    password: supersecret
+    host: AFFILIATE_TRACKER_DB
+    port: 5432
+    engine: postgre
+    database: db
+    max_connections: 10
+    ssl_mode: disable
+    # skip_default_transaction: (default false) - skip default transaction for each request
+    # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
+    skip_default_transaction: true
+    full_save_associations: false
   logging:
     level: DEBUG
     errorLogFile: error.log
   auth:
     secret: JWT_SECRET
-  email:
-    user:
-    password:
-    port:
-    smtp_server:
-    host:
 
 production:
   server:
@@ -52,33 +40,21 @@ production:
     scheme: http # http or https
     mode: debug # debug or release
     static: ./src/adapters/http/rest/static/
-  storage:
-    db:
-      user: postgres
-      password: supersecret
-      host: AFFILIATE_TRACKER_DB
-      port: 5432
-      database: db
-      max_connections: 10
-      sslmode: disable
-      # skip_default_transaction: (default false) - skip default transaction for each request
-      # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
-      skip_default_transaction: true
-      full_save_associations: false
-    s3:
-      bucket:
-      access_key:
-      secret_access_key:
-      region:
-      endpoint:
+  db:
+    user: postgres
+    password: supersecret
+    host: api-template-db
+    port: 5432
+    engine: postgres
+    database: db
+    max_connections: 10
+    ssl_mode: disable
+    # skip_default_transaction: (default false) - skip default transaction for each request
+    # (useful for performance) 30 % faster but you need to handle transactions manually (begin, commit, rollback)
+    skip_default_transaction: true
+    full_save_associations: false
   logging:
     level: DEBUG
     errorLogFile: error.log
   auth:
     secret: JWT_SECRET
-  email:
-    user:
-    password:
-    port:
-    smtp_server:
-    host:

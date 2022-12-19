@@ -54,15 +54,16 @@ func New(dsn config.DBConfig) ports.Repository {
 		})
 		os.Exit(1)
 	}
-	return &repository{db: db.Set("gorm:auto_preload", true)}
+	dbStore = &repository{db: db.Set("gorm:auto_preload", true)}
+
+	return dbStore
 }
 
 func NewRepository() ports.Repository {
 	log.DebugWithFields("Creating new database connection",
 		log.Fields{"dsn": config.GetDBConfig()})
 	if dbStore == nil {
-		New(config.GetDBConfig())
-		return dbStore
+		return New(config.GetDBConfig())
 	}
 	return dbStore
 }

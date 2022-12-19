@@ -7,6 +7,9 @@ type ServerInterface interface {
 	Ping(c *gin.Context)
 	GetReferralLink(c *gin.Context)
 	ProcessRequest(c *gin.Context)
+	ReferredGetAll(c *gin.Context)
+	ReferredGetById(c *gin.Context)
+	ReferredGetByAgentId(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -30,6 +33,18 @@ func (siw *ServerInterfaceWrapper) ProcessRequest(c *gin.Context) {
 	siw.Handler.ProcessRequest(c)
 }
 
+func (siw *ServerInterfaceWrapper) ReferredGetAll(c *gin.Context) {
+	siw.Handler.ReferredGetAll(c)
+}
+
+func (siw *ServerInterfaceWrapper) ReferredGetById(c *gin.Context) {
+	siw.Handler.ReferredGetById(c)
+}
+
+func (siw *ServerInterfaceWrapper) ReferredGetByAgentId(c *gin.Context) {
+	siw.Handler.ReferredGetByAgentId(c)
+}
+
 // GinServerOptions provides options for the Gin server.
 type GinServerOptions struct {
 	BaseURL     string
@@ -51,5 +66,8 @@ func RegisterHandlersWithOptions(router *gin.Engine, si ServerInterface, options
 	router.GET(options.BaseURL+"/ping", wrapper.Ping)
 	router.POST(options.BaseURL+"/referral_link", wrapper.GetReferralLink)
 	router.GET(options.BaseURL+"/open_position", wrapper.ProcessRequest)
+	router.GET(options.BaseURL+"/report/referreds/:id", wrapper.ReferredGetById)
+	router.GET(options.BaseURL+"/report/referreds/", wrapper.ReferredGetAll)
+	router.GET(options.BaseURL+"/report/referreds/agent/:id", wrapper.ReferredGetByAgentId)
 	return router
 }

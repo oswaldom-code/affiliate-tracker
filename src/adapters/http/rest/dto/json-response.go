@@ -24,8 +24,8 @@ func (r *HTTPHeaders) GetHeader(c *gin.Context) {
 	r.XForwardedFor = c.GetHeader("X-Forwarded-For")
 }
 
-func (r *HTTPHeaders) HTTPHeadersToReferred() AffiliateTrackerTypes.Referred {
-	return AffiliateTrackerTypes.Referred{
+func (r *HTTPHeaders) HTTPHeadersToReferred() AffiliateTrackerTypes.ReferredDTO {
+	return AffiliateTrackerTypes.ReferredDTO{
 		RequestReferer:   r.Referer,
 		RequestIp:        r.XForwardedFor,
 		RequestUserAgent: r.UserAgent,

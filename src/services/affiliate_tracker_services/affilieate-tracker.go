@@ -14,9 +14,12 @@ import (
 
 type Tracker interface {
 	GenerateIdentifier(referralLink types.ReferralLink) (string, error)
-	IdentifierDecoding(encryptedData string, referred types.Referred) (string, error)
+	IdentifierDecoding(encryptedData string, referred types.ReferredDTO) (string, error)
 	encrypter(data string) (string, error)
 	decrypt(encryptedDataStr string) (string, error)
+	GetAll() ([]types.ReferredDTO, error)
+	GetById(id int64) (types.ReferredDTO, error)
+	GetByAgentId(agentId string) ([]types.ReferredDTO, error)
 }
 
 type tracker struct {
@@ -29,7 +32,7 @@ func NewTrackerService() Tracker {
 }
 
 // IdentifierDecoding generates a unique identifier for the given reference (agent, url)
-func (t *tracker) IdentifierDecoding(encryptedData string, referred types.Referred) (string, error) {
+func (t *tracker) IdentifierDecoding(encryptedData string, referredDto types.ReferredDTO) (string, error) {
 	// replace spaces
 	encryptedData = strings.Replace(encryptedData, " ", "+", -1)
 	result, err := t.decrypt(encryptedData)
@@ -38,11 +41,11 @@ func (t *tracker) IdentifierDecoding(encryptedData string, referred types.Referr
 	}
 	// assign to object referred the already decrypted url and agent values
 	// This object already contains the information of the HTTP request headers
-	referred.Agent = strings.Split(result, ":::")[0]
-	referred.Url = strings.Split(result, ":::")[1]
-	// TODO Persist the information on DB
+	referredDto.AgentId = strings.Split(result, ":::")[0]
+	referredDto.JobUrl = strings.Split(result, ":::")[1]
+	_ = t.r.Save(referredDto.ToModel())
 	// returns the url of the job offer
-	return referred.Url, nil
+	return referredDto.JobUrl, nil
 }
 
 // GenerateIdentifier generates a unique identifier for the given reference (agent, url)
@@ -118,3 +121,23 @@ func AesDecrypt(encryptedData, key []byte) ([]byte, error) {
 /*
 	END Helper functions
 */
+
+func (t *tracker) GetAll() ([]types.ReferredDTO, error) {
+	referedsList, err := t.r.GetAll()
+	referedDTO := types.ReferredDTO{}
+	return referedDTO.ReferredModelsToReferredDTOs(referedsList), err
+}
+
+func (t *tracker) GetById(id int64) (types.ReferredDTO, error) {
+	refered, err := t.r.GetById(id)
+	referedDTO := types.ReferredDTO{}
+	referedDTO.ReferredModelToReferredDTO(refered)
+	// parse model data to application types
+	return referedDTO, err
+}
+
+func (t *tracker) GetByAgentId(agentId string) ([]types.ReferredDTO, error) {
+	referedsList, err := t.r.GetByAgentId(strings.ToUpper(agentId))
+	referedDTO := types.ReferredDTO{}
+	return referedDTO.ReferredModelsToReferredDTOs(referedsList), err
+}

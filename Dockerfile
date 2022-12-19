@@ -9,4 +9,4 @@ COPY . ./
 RUN CGO_ENABLED=0 go build -o bin/affiliate-tracker main.go
 
 ENTRYPOINT ["/app/bin/affiliate-tracker", "server"]
-EXPOSE 9000
+EXPOSE 3000
